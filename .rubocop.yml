@@ -1,0 +1,12 @@
+AllCops:
+  Exclude:
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+
+# AllCops:
+#     NewCops: enable
+
+Style/Documentation:
+  Enabled: false

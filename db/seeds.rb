@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 puts '======> Destroying existing records'
 
 ActiveRecord::Base.connection.tables.each do |table|
-  unless table = 'ar_internal_metadata' || table = 'schema_migrations'
+  unless %w[ar_internal_metadata schema_migrations].include? table
     ActiveRecord::Base.connection.execute("DELETE from #{table}")
     ActiveRecord::Base.connection.reset_pk_sequence! table
   end
