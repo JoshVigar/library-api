@@ -1,12 +1,11 @@
 AllCops:
+  NewCops: enable
   Exclude:
     - 'node_modules/**/*'
     - 'vendor/**/*'
     - 'db/schema.rb'
     - 'db/migrate/*'
-
-# AllCops:
-#     NewCops: enable
+    - 'bin/bundle'
 
 Style/Documentation:
   Enabled: false
