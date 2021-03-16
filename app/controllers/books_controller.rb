@@ -2,6 +2,6 @@
 
 class BooksController < ApplicationController
   def index
-    render json: Book.all.map(&:title)
+    render json: Book.all.pluck(:title)
   end
 end
