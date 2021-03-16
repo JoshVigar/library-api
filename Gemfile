@@ -42,11 +42,12 @@ end
 
 group :development do
   gem 'listen', '~> 3.2'
-  gem 'rubocop'
-  gem 'rubocop-rails'
-  gem 'rubocop-rspec'
+  gem 'rubocop', '1.11.0'
+  gem 'rubocop-rails', '2.9.1'
+  gem 'rubocop-rspec', '2.2.0'
+  gem 'simplecov', '0.21.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  gem 'spring', '2.1.1'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
