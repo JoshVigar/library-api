@@ -2,6 +2,6 @@
 
 class BooksController < ApplicationController
   def index
-    render json: Book.all.pluck(:title)
+    render json: BookSerializer.new(Book.all)
   end
 end
