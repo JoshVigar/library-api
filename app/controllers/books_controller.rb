@@ -7,14 +7,15 @@ class BooksController < ApplicationController
     render json: BookSerializer.new(book_index)
   end
 
-  def book_index
-    return Book.all if params[:filter].blank?
+  private
 
-    Book.where(validated_filter_params)
+  def book_index
+    return Book.all if validated_filter_params[:filter].blank?
+
+    Book.where(validated_filter_params[:filter])
   end
 
   def validated_filter_params
-    filters = params[:filter]
-    filters.permit(PERMITTED_FILTERS)
+    @validated_filter_params ||= Validators::Books::Index.validate!(params)
   end
 end
