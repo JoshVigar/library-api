@@ -7,6 +7,9 @@ class BooksController < ApplicationController
     render json: BookSerializer.new(book_index)
   end
 
+  def create
+  end
+
   private
 
   def book_index
