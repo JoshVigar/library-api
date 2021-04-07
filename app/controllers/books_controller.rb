@@ -2,12 +2,22 @@
 
 class BooksController < ApplicationController
   PERMITTED_FILTERS = %i[title].freeze
+  PERMITTED_CREATE_PARAMETERS = %i[title author description].freeze
+  private_constant :PERMITTED_FILTERS
+  private_constant :PERMITTED_CREATE_PARAMETERS
 
   def index
     render json: BookSerializer.new(book_index)
   end
 
   def create
+    if book_create.valid?
+      render json: BookSerializer.new(book_create), status: 201
+    else
+      render json: error(book_create.errors.messages), status: 400
+    end
+  rescue ActionController::ParameterMissing => e
+    render json: error(e.message), status: 400
   end
 
   private
@@ -20,5 +30,24 @@ class BooksController < ApplicationController
 
   def validated_filter_params
     @validated_filter_params ||= Validators::Books::Index.validate!(params)
+  end
+
+  def book_create
+    @book_create ||= Book.create(validated_create_params)
+  end
+
+  def validated_create_params
+    @validated_create_params ||= params.require(:data)
+                                       .require(%i[type attributes])[1]
+                                       .permit(PERMITTED_CREATE_PARAMETERS).to_h
+  end
+
+  def error(err_msg)
+    {
+      errors: {
+        status: 400,
+        message: err_msg
+      }
+    }
   end
 end
