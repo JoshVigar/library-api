@@ -3,9 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Books create', type: :request do
-  subject { post '/books', params: params }
+  subject { post '/books', params: params.to_json, headers: headers }
 
   let(:params) { {} }
+  let(:headers) { { "Content-Type": 'application/vnd.api+json' } }
 
   context 'with no items in the database' do
     let(:params) do
