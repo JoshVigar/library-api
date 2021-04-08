@@ -3,9 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Books index', type: :request do
-  subject { get '/books', params: params }
+  subject { get '/books', params: params, headers: headers }
 
   let(:params) { {} }
+  let(:headers) { { "Content-Type": 'application/vnd.api+json' } }
 
   context 'with records in the database' do
     let!(:books_array) { create_list(:book, 3) }
