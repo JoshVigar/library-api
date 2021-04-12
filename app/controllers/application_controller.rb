@@ -6,10 +6,12 @@ class ApplicationController < ActionController::API
   private
 
   def validate_content_type_header
-    render(status: 406, body: nil) unless Validators::JsonapiHeaders.validate_content_type(request.headers)
+    render(status: :not_acceptable, body: nil) unless Validators::JsonapiHeaders.validate_content_type(request.headers)
   end
 
   def validate_accept_header
-    render(status: 415, body: nil) unless Validators::JsonapiHeaders.validate_accept(request.headers)
+    return if Validators::JsonapiHeaders.validate_accept(request.headers)
+
+    render(status: :unsupported_media_type, body: nil)
   end
 end
