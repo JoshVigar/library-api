@@ -11,13 +11,23 @@ AllCops:
     - 'db/migrate/*'
     - 'bin/bundle'
 
-Style/Documentation:
-  Enabled: false
-
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
   
+Rails/Output:
+  Exclude:
+    - 'db/seeds.rb'
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
 RSpec/NestedGroups:
   Exclude:
     - 'spec/**/*'
+
+Style/Documentation:
+  Enabled: false

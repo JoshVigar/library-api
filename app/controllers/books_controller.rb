@@ -12,12 +12,12 @@ class BooksController < ApplicationController
 
   def create
     if book_create.valid?
-      render json: BookSerializer.new(book_create), status: 201
+      render json: BookSerializer.new(book_create), status: :created
     else
-      render json: error(book_create.errors.messages), status: 400
+      render json: error(book_create.errors.messages), status: :bad_request
     end
   rescue ActionController::ParameterMissing => e
-    render json: error(e.message), status: 400
+    render json: error(e.message), status: :bad_request
   end
 
   private
