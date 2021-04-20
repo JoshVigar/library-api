@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_examples 'a json api enforced endpoint' do
   subject { request_with_params }
 
