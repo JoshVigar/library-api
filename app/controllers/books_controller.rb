@@ -7,7 +7,7 @@ class BooksController < ApplicationController
   private_constant :PERMITTED_CREATE_PARAMETERS
 
   def index
-    render json: BookSerializer.new(book_index)
+    render json: BookSerializer.serialize(book_index)
   end
 
   def create
@@ -23,13 +23,14 @@ class BooksController < ApplicationController
   private
 
   def book_index
-    return Book.all if validated_filter_params[:filter].blank?
+    return Book.includes(:reviews).all if validated_filter_params.blank?
 
-    Book.where(validated_filter_params[:filter])
+    Book.includes(:reviews).where(validated_filter_params)
   end
 
   def validated_filter_params
-    @validated_filter_params ||= Validators::Books::Index.validate!(params)
+    @validated_filter_params ||=
+      Validators::Books::Index.validate!(params)[:filter]
   end
 
   def book_create

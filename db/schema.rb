@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_09_082625) do
+ActiveRecord::Schema.define(version: 2021_04_22_104808) do
 
   create_table "books", force: :cascade do |t|
     t.string "author"
     t.string "title"
     t.text "description"
-    t.index ["title"], name: "index_books_on_title"
+    t.index ["title"], name: "index_books_on_title", unique: true
   end
 
   create_table "reviews", force: :cascade do |t|
