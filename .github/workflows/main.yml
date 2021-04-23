@@ -2,9 +2,9 @@ name: Verify
 
 on:
   push:
-    branches: [ pipeline-testing ]
+    branches: [ master ]
   pull_request:
-    branches: [ pipeline-testing ]
+    branches: [ master ]
 
 jobs:
   test:
