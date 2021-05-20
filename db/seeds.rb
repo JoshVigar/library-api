@@ -13,4 +13,13 @@ puts '======> Seeding books'
 Faker::UniqueGenerator.clear
 FactoryBot.create_list(:book, 10)
 
+puts '======> Seeding tags'
+
+FactoryBot.create_list(:tag, 10) do |tag, i|
+  Book.all.sample(i <= 1 ? 10 : 2).map do |book|
+    book.tags << tag
+    book.save
+  end
+end
+
 puts '======> Finished Seeding Books'
