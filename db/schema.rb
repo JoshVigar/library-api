@@ -10,13 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_22_104808) do
+ActiveRecord::Schema.define(version: 2021_05_19_155455) do
 
   create_table "books", force: :cascade do |t|
     t.string "author"
     t.string "title"
     t.text "description"
     t.index ["title"], name: "index_books_on_title", unique: true
+  end
+
+  create_table "books_tags", id: false, force: :cascade do |t|
+    t.integer "book_id", null: false
+    t.integer "tag_id", null: false
+    t.index ["book_id"], name: "index_books_tags_on_book_id"
+    t.index ["tag_id"], name: "index_books_tags_on_tag_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -27,6 +34,12 @@ ActiveRecord::Schema.define(version: 2021_04_22_104808) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["book_id"], name: "index_reviews_on_book_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "reviews", "books"
