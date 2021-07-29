@@ -15,6 +15,7 @@ RSpec.describe 'Books index', type: :request do
 
     context 'with includes in the database' do
       let!(:reviews_array) { create_list(:review, 3, book: books_array.first) }
+      let!(:tags_array) { create_list(:tag, 3, book_ids: books_array.first.id) }
 
       let(:books_array_json) do
         books_array.map do |book|
@@ -32,6 +33,14 @@ RSpec.describe 'Books index', type: :request do
                         {
                           id: review.id.to_s,
                           type: 'review'
+                        }
+                      end
+              },
+              tags: {
+                data: book.tags.map do |tag|
+                        {
+                          id: tag.id.to_s,
+                          type: 'tag'
                         }
                       end
               }
@@ -61,9 +70,33 @@ RSpec.describe 'Books index', type: :request do
           }
         end
       end
+
+      let(:tags_array_json) do
+        tags_array.map do |tag|
+          {
+            id: tag.id.to_s,
+            type: 'tag',
+            attributes: {
+              name: tag.name
+            },
+            relationships: {
+              books: {
+                data: [{
+                  id: tag.books.first.id.to_s,
+                  type: 'book'
+                }]
+              }
+            }
+          }
+        end
+      end
+
+      let(:included) { reviews_array_json + tags_array_json }
+
       let(:expected_response) do
         { data: books_array_json }
-          .merge({ included: reviews_array_json }).deep_stringify_keys
+          .merge({ included: included })
+          .deep_stringify_keys
       end
 
       it 'returns an array of all books with reviews includes' do
@@ -89,6 +122,9 @@ RSpec.describe 'Books index', type: :request do
             },
             relationships: {
               reviews: {
+                data: []
+              },
+              tags: {
                 data: []
               }
             }
@@ -123,6 +159,9 @@ RSpec.describe 'Books index', type: :request do
           },
           relationships: {
             reviews: {
+              data: []
+            },
+            tags: {
               data: []
             }
           }
