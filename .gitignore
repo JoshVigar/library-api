@@ -33,3 +33,4 @@
 
 # Ignore coverage information from testing
 coverage
+spec/examples.txt

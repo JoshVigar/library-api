@@ -23,9 +23,9 @@ class BooksController < ApplicationController
   private
 
   def book_index
-    return Book.includes(:reviews).all if validated_filter_params.blank?
+    return Book.includes(:reviews, :tags).all if validated_filter_params.blank?
 
-    Book.includes(:reviews).where(validated_filter_params)
+    Book.includes(:reviews, :tags).where(validated_filter_params)
   end
 
   def validated_filter_params

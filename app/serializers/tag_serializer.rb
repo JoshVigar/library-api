@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-class BookSerializer
+class TagSerializer
   include JSONAPI::Serializer
 
-  attributes :title, :author, :description
-  has_many :reviews
-  has_many :tags
+  attributes :name
+  has_many :books
 
   class << self
     def serialize(relation, options = default_options)
@@ -15,7 +14,7 @@ class BookSerializer
     private
 
     def default_options
-      { include: %i[reviews tags] }
+      { include: %i[books] }
     end
   end
 end
