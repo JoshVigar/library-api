@@ -19,7 +19,7 @@ RSpec.describe Book, type: :model do
       expect(filtered_results).to include(book)
     end
 
-    it 'excludes users without admin flag' do
+    it 'excludes book without title' do
       expect(filtered_results).not_to include(other_book)
     end
   end
