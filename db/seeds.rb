@@ -22,4 +22,12 @@ FactoryBot.create_list(:tag, 10) do |tag, i|
   end
 end
 
-puts '======> Finished Seeding Books'
+puts '======> Seeding videos'
+
+FactoryBot.create_list(:video, 3)
+
+puts '======> Seeding podcasts'
+
+FactoryBot.create_list(:podcast, 3)
+
+puts '======> Finished Seeding'
